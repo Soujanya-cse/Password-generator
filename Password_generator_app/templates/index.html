@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Cute Password Generator ✨</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 380px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      color: #444;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input[type=range] {
+      width: 100%;
+      margin: 5px 0 15px;
+      accent-color: #ff6ec7;
+    }
+
+    button {
+      background: linear-gradient(90deg, #ff6ec7, #a6c1ee);
+      color: white;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .password-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: #f7f7f7;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 16px;
+      word-wrap: break-word;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: #a6c1ee;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .copy-btn:hover {
+      background: #ff6ec7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Cute Password Generator ✨</h1>
+    <form method="POST">
+      <label>Letters: <span id="lettersVal">4</span></label>
+      <input type="range" name="letters" min="0" max="15" value="4" oninput="lettersVal.innerText=this.value">
+      
+      <label>Symbols: <span id="symbolsVal">2</span></label>
+      <input type="range" name="symbols" min="0" max="10" value="2" oninput="symbolsVal.innerText=this.value">
+      
+      <label>Numbers: <span id="numbersVal">2</span></label>
+      <input type="range" name="numbers" min="0" max="10" value="2" oninput="numbersVal.innerText=this.value">
+      
+      <button type="submit">🔑 Generate Password</button>
+    </form>
+
+    {% if password %}
+    <div class="password-box" id="passwordBox">
+      {{ password }}
+      <button class="copy-btn" onclick="copyPassword()">Copy</button>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function copyPassword() {
+      const text = document.getElementById("passwordBox").innerText.replace("Copy", "").trim();
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Password copied! 🎉");
+      });
+    }
+  </script>
+</body>
+</html>
